@@ -18,7 +18,7 @@ console.log("true" === true);// false
 console.log((0.2 + 0.1 - 0.3) == true);// false 
 console.log((0.2 + 0.1 - 0.3) === true);// false 
 
-console.log((0.2 + 0.1 - 0.3) == false);// true
+console.log((0.2 + 0.1 - 0.3) == false);// false
 console.log((0.2 + 0.1 - 0.3) === false);// false 
 
 
@@ -30,8 +30,8 @@ console.log({} === {});// false
 console.log({} == "[object Object]"); // true JavaScript превращает объект в строку "[object Object]"
 console.log({} === "[object Object]"); // false Разные типы: объект и строка.
 
-console.log({} == true);// false Объект преобразуется в строку "[object Object]", затем в NaN; true преобразуется в 1
-console.log({} == false);// false Объект после преобразований дает NaN, а false преобразуется в 0
+console.log({} == true);// false 
+console.log({} == false);// false 
 
-console.log({} == 0); // false  Объект после преобразования в число дает NaN, а NaN не равен 0
-console.log({} == NaN); // false NaN не равен никакому значению, даже самому NaN
+console.log({} == 0); // false 
+console.log({} == NaN); // false 
