@@ -1,0 +1,24 @@
+{
+  "name": "javascript-homework",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/webdevvictory/javascript-homework#readme",
+  "bugs": {
+    "url": "https://github.com/webdevvictory/javascript-homework/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdevvictory/javascript-homework.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/genai": "^2.19.0",
+    "axios": "^1.20.0"
+  }
+}
