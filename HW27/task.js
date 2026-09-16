@@ -2,14 +2,14 @@ import { readFile } from "node:fs/promises";
 import { GoogleGenAI } from "@google/genai";
 
 async function getProducts() {
-    const filePath = new URL("../fridge.json", import.meta.url);
-    const fileData = await readFile(filePath, "utf-8");
-    return JSON.parse(fileData);
+  const filePath = new URL("../fridge.json", import.meta.url);
+  const fileData = await readFile(filePath, "utf-8");
+  return JSON.parse(fileData);
 }
 
-function createBasePromptByRole(user){
-    if (user.role === "ADMIN") {
-        return `
+function createBasePromptByRole(user) {
+  if (user.role === "ADMIN") {
+    return `
         Ты - квалифицированный повар, определяющий ингредиенты
         блюда по названию блюда. 
         Тебе дается название желаемого блюда и список
@@ -22,8 +22,8 @@ function createBasePromptByRole(user){
             -не возвращай продукты, не имеющие отношения к данному блюду.
             -не возвращай продукты, которые уже есть в холодильнике.        
         `;
-    } else {
-        return `
+  } else {
+    return `
         Ты - квалифицированный повар, определяющий ингредиенты
         блюда по названию блюда. 
         Тебе дается название желаемого блюда и список
@@ -38,11 +38,11 @@ function createBasePromptByRole(user){
             -не возвращай продукты, не имеющие отношения к данному блюду.
             -не возвращай продукты, которых нет в холодильнике.          
         `;
-    }
+  }
 }
 
 function createPrompt(basePrompt, dishTitle, availableProducts) {
-    return `
+  return `
 ${basePrompt}
 
 Название блюда: ${dishTitle}
@@ -54,66 +54,66 @@ ${JSON.stringify(availableProducts, null, 2)}
 
 // Обращение к Gemini из lesson23/task02.js.
 async function askAi(prompt) {
-    const genAi = new GoogleGenAI({
-        apiKey: process.env.GEMINI_API_KEY
-    });
+  const genAi = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+  });
 
-    const response = await genAi.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-    });
+  const response = await genAi.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: prompt,
+  });
 
-    return response.text;
+  return response.text;
 }
 
 async function main() {
-    const user = {
-        name: "John",
-        role: "USER"
-    };
+  const user = {
+    name: "John",
+    role: "USER",
+  };
 
-    const admin = {
-        name: "Bill",
-        role: "ADMIN"
-    };
+  const admin = {
+    name: "Bill",
+    role: "ADMIN",
+  };
 
-    // Для проверки USER замени admin на user.
-    const authenticatedUser = admin;
+  const authenticatedUser = admin;
 
-    // 1. Получаем продукты из файла.
-    const availableProducts = await getProducts();
+  // Алгоритм работы приложения:
+  // 1. Получить все продукты из БД холодильника в принципе
+  const availableProducts = await getProducts();
 
-    // 2. Выбираем инструкцию по уже известной роли.
-    const basePrompt = createBasePromptByRole(authenticatedUser);
-/*
-    // 3. Добавляем блюдо и имеющиеся продукты.
+  // 2. Написать базовый промпт зависящий от роли (реомендуем либо
+  // имеющиеся в холодильнике продукты для приготовления, либо
+  // список того что нужно закупить)
+  const basePrompt = createBasePromptByRole(authenticatedUser);
+  /*
+    //3. Составляем промпт для ИИ для рекомендаций по конкретному 
+    // блюду (уже с учетом роли пользователя)
     const prompt = createPrompt(basePrompt, "борщ", availableProducts);
 
-    // 4. Получаем ответ ИИ.
+    //4. Отправим промпт искуственному интелекту и получим от него ответ
     const aiResponse = await askAi(prompt);
 */
-const dishTitle = "борщ";
+  const dishTitle = "борщ";
 
-const prompt = createPrompt(
-    basePrompt,
-    dishTitle,
-    availableProducts
-);
+  const prompt = createPrompt(basePrompt, dishTitle, availableProducts);
 
-const aiResponse = await askAi(prompt);
+  const aiResponse = await askAi(prompt);
 
-if (authenticatedUser.role === "ADMIN") {
+  if (authenticatedUser.role === "ADMIN") {
     console.log(`Для блюда «${dishTitle}» надо докупить следующие продукты:`);
-} else {
-    console.log(`Для блюда «${dishTitle}» используй следующие продукты из холодильника:`);
-}
+  } else {
+    console.log(
+      `Для блюда «${dishTitle}» используй следующие продукты из холодильника:`,
+    );
+  }
 
-
-    // 5. Выводим ответ.
-    console.log(aiResponse);
+  // 5. Выводим ответ.
+  console.log(aiResponse);
 }
 
 main().catch((error) => {
-    console.error("Ошибка:", error.message);
-    process.exitCode = 1;
+  console.error("Ошибка:", error.message);
+  process.exitCode = 1;
 });
