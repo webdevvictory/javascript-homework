@@ -1,4 +1,3 @@
-console.log("HW28: main.js подключен");
 import {getUserByName} from "./authService.js";
 import {FRIDGE_FILE} from "./config.js";
 import path from "node:path";
