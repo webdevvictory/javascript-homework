@@ -1,42 +1,42 @@
 const app = document.querySelector("#app");
 
 function createUI(app) {
-    const title = document.createElement("h1");
-    title.textContent = "Список продуктов";
-    app.append(title);
+  const title = document.createElement("h1");
+  title.textContent = "Список продуктов";
+  app.append(title);
 
-    const form = document.createElement("form");
+  const form = document.createElement("form");
 
-    const input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = "Введите продукт";
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Введите продукт";
 
-    const button = document.createElement("button");
-    button.type = "submit";
-    button.textContent = "Добавить";
+  const button = document.createElement("button");
+  button.type = "submit";
+  button.textContent = "Добавить";
 
-    form.append(input, button);
+  form.append(input, button);
 
-    const list = document.createElement("ul");
-    app.append(form, list);
+  const list = document.createElement("ul");
+  app.append(form, list);
 
-    return { form, input, list };
+  return { form, input, list };
 }
 
 const { form, input, list } = createUI(app);
 
 function handleSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const productName = input.value.trim();
+  const productName = input.value.trim();
 
-    if (!productName) {
-        return;
-    }
+  if (!productName) {
+    return;
+  }
 
-    const items = list.querySelectorAll("li");
+  const items = list.querySelectorAll("li");
 
-    let duplicate = false;
+  /*    let duplicate = false;
 
     items.forEach(function (item) {
         if (
@@ -45,19 +45,25 @@ function handleSubmit(e) {
         ) {
             duplicate = true;
         }
-    });
+    }); */
 
-    if (duplicate) {
-        input.focus();
-        return;
-    }
+  const duplicate = items.some(function (item) {
+    return (
+      item.textContent.trim().toLowerCase() === productName.trim().toLowerCase()
+    );
+  });
 
-    const li = document.createElement("li");
-    li.textContent = productName;
-    list.append(li);
-
-    input.value = "";
+  if (duplicate) {
     input.focus();
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.textContent = productName;
+  list.append(li);
+
+  input.value = "";
+  input.focus();
 }
 
 form.addEventListener("submit", handleSubmit);
