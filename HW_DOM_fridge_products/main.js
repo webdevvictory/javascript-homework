@@ -20,10 +20,41 @@ function createUI(app) {
   const list = document.createElement("ul");
   app.append(form, list);
 
-  return { form, input, list };
+  const showButton = document.createElement("button");
+  showButton.type = "button";
+  showButton.textContent = "Показать список";
+
+  form.append(showButton);
+
+  return { form, input, list, showButton };
 }
 
-const { form, input, list } = createUI(app);
+const { form, input, list, showButton } = createUI(app);
+
+const products = [
+  "Молоко",
+  "Хлеб",
+  "Сыр",
+  "Молоко",
+  "Яйца",
+  "Хлеб"
+]
+
+showButton.addEventListener("click", showList);
+
+function showList() {
+  products.forEach(function (product) {
+    const items = list.querySelectorAll("li");
+
+    if (isDuplicate(items, product)) {
+      return;
+    }
+
+    const li = document.createElement("li");
+    li.textContent = product;
+    list.append(li);
+  });
+}
 
 function isDuplicate(items, productName) {
   return Array.from(items).some(function (item) {
