@@ -45,11 +45,19 @@ function handleSubmit(e) {
         ) {
             duplicate = true;
         }
-    }); */
+    });
 
   const duplicate = items.some(function (item) {
     return (
       item.textContent.trim().toLowerCase() === productName.trim().toLowerCase()
+    );
+  });
+*/
+
+  const duplicate = Array.from(items).some(function (item) {
+    return (
+        item.textContent.trim().toLowerCase() ===
+        productName.trim().toLowerCase()
     );
   });
 
