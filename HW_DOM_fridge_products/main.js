@@ -25,6 +25,15 @@ function createUI(app) {
 
 const { form, input, list } = createUI(app);
 
+function isDuplicate(items, productName) {
+  return Array.from(items).some(function (item) {
+    return (
+        item.textContent.trim().toLowerCase() ===
+        productName.trim().toLowerCase()
+    );
+  });
+}
+
 function handleSubmit(e) {
   e.preventDefault();
 
@@ -35,31 +44,7 @@ function handleSubmit(e) {
   }
 
   const items = list.querySelectorAll("li");
-
-  /*    let duplicate = false;
-
-    items.forEach(function (item) {
-        if (
-            item.textContent.trim().toLowerCase() ===
-            productName.toLowerCase()
-        ) {
-            duplicate = true;
-        }
-    });
-
-  const duplicate = items.some(function (item) {
-    return (
-      item.textContent.trim().toLowerCase() === productName.trim().toLowerCase()
-    );
-  });
-*/
-
-  const duplicate = Array.from(items).some(function (item) {
-    return (
-        item.textContent.trim().toLowerCase() ===
-        productName.trim().toLowerCase()
-    );
-  });
+  const duplicate = isDuplicate(items, productName);
 
   if (duplicate) {
     input.focus();
