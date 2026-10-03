@@ -46,6 +46,9 @@ function renderProducts(productsToRender) {
 }
 
 function addProduct(name, category) {
+    if (!name || !category) {
+        return;
+    }
     if (products.some(product => product.name.toLowerCase() === name.toLowerCase())) {
         return;
     }
@@ -60,6 +63,23 @@ function addProduct(name, category) {
     products.push(newProduct);
     renderProducts(products);
 }
+
+function toggleProduct(id) {
+    const product = products.find(product => product.id === id);
+    product.bought = !product.bought;
+    renderProducts(products);
+}
+
+list.addEventListener("click", (event) => {
+    const li = event.target.closest("li");
+
+    if (!li) {
+        return;
+    }
+
+    const id = Number(li.dataset.id);
+    toggleProduct(id);
+});
 
 function createUI(app) {
     const nameInput = document.createElement("input");
