@@ -70,6 +70,28 @@ function toggleProduct(id) {
     renderProducts(products);
 }
 
+function filterProducts(filter) {
+    if (filter === "needed") {
+        const needToBuy = products.filter(function (product) {
+            return product.bought === false;
+        });
+
+        renderProducts(needToBuy);
+    }
+
+    if (filter === "bought") {
+        const boughtProducts = products.filter(function (product) {
+            return product.bought === true;
+        });
+
+        renderProducts(boughtProducts);
+    }
+
+    if (filter === "all") {
+        renderProducts(products);
+    }
+}
+
 list.addEventListener("click", (event) => {
     const li = event.target.closest("li");
 
@@ -93,14 +115,30 @@ function createUI(app) {
     addButton.textContent = "Добавить";
 
     const form = document.createElement("form");
-
     form.append(nameInput, categoryInput, addButton);
-    app.append(form);
 
-    return {form, nameInput, categoryInput};
+    const allButton = document.createElement("button");
+    allButton.type = "button";
+    allButton.textContent = "Все продукты";
+
+    const needToBuyButton = document.createElement("button");
+    needToBuyButton.type = "button";
+    needToBuyButton.textContent = "Нужно купить";
+
+    const boughtButton = document.createElement("button");
+    boughtButton.type = "button";
+    boughtButton.textContent = "Куплено";
+
+    app.append(form, allButton, needToBuyButton, boughtButton);
+
+    return {form, nameInput, categoryInput, allButton, needToBuyButton, boughtButton};
 }
 
-const {form, nameInput, categoryInput} = createUI(app);
+const {form, nameInput, categoryInput, allButton, needToBuyButton, boughtButton} = createUI(app);
+
+allButton.addEventListener("click", () => filterProducts("all"));
+needToBuyButton.addEventListener("click", () => filterProducts("needed"));
+boughtButton.addEventListener("click", () => filterProducts("bought"));
 
 function handleSubmit(event) {
     event.preventDefault();
