@@ -10,7 +10,6 @@ function validateUser(user) {
     if (typeof user.id !== "number") {
         throw new Error("User id must be a number");
     }
-    return true;
 }
 
 axios.get("https://jsonplaceholder.typicode.com/users")
