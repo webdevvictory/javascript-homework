@@ -12,6 +12,7 @@ console.log(product);
 
 const quotient = divide(100, 4);
 console.log(quotient);
+console.log(divide(10, 0));
 
 const circleArea = getCircleArea(5);
 console.log(circleArea);
@@ -19,6 +20,6 @@ console.log(circleArea);
 const rectangleArea = getRectangleArea(8, 12 );
 console.log(rectangleArea);
 
-const CircleLength = getCircleLength(10);
-console.log(CircleLength);
+const circleLength = getCircleLength(10);
+console.log(circleLength);
 
