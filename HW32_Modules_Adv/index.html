@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<title>User Registration</title>
+	
+	<link rel="stylesheet" href="./css/main.css"/>
+	<link rel="stylesheet" href="./css/form.css"/>
+	
+	<script src="./js/user.js" defer></script>
+	<script src="./js/userManager.js" defer></script>
+	<script src="./js/app.js" defer></script>
+</head>
+
+<body>
+
+<main class="app">
+	<section class="card">
+		
+		<h1>User Registration</h1>
+		
+		<form class="form" id="registration-form">
+			<div>
+				<label for="name-input">Name</label>
+				<input
+						class="form_input"
+						type="text"
+						id="name-input"
+						name="name"
+						placeholder="Your name"
+				>
+			</div>
+			
+			<div>
+				<label for="age-input">Age</label>
+				<input
+						class="form_input"
+						type="number"
+						id="age-input"
+						name="age"
+						placeholder="Your age"
+				>
+			</div>
+			
+			<p
+					id="message"
+			></p>
+			
+			<button class="form_button" type="submit" id="register-button">
+				Register
+			</button>
+		</form>
+	</section>
+	<section class="card users">
+		<h2 class="users_title">Registered Users</h2>
+		<ul class="users_list" id="users-list"></ul>
+	</section>
+</main>
+</body>
+</html>
