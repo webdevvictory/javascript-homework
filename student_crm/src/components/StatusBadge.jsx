@@ -1,6 +1,6 @@
 function StatusBadge(props) {
     return (
-        <span>
+        <span className={props.isActive ? 'status-active' : 'status-paused'}>
             {props.isActive ? "Активен" : "На паузе"}
         </span>
     );

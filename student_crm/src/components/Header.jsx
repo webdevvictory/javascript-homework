@@ -1,14 +1,15 @@
+import logo from '../assets/tr_logo_3x.avif';
+
 function Header() {
-
     return (
-        <header>
-            <h1>STUDENT CRM</h1>
-
-            <p>Система управления студентами</p>
-
+        <header className="header">
+            <div className="header-container">
+                <div className="logo">
+                    <img src={logo} alt="Tel-Ran" className="header-logo" />
+                </div>
+            </div>
         </header>
     );
-
 }
 
 export default Header;

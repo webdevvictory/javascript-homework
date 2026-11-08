@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer>
+        <footer className="footer">
             <p>Student CRM — учебный проект</p>
         </footer>
     );

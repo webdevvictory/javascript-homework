@@ -8,11 +8,14 @@ function App() {
 
   return (
     <>
-      <Header />
-      <StudentList students={students} />
-      <Footer />
+        <Header />
 
-      <section id="spacer"></section>
+        <main className="main-content">
+            <StudentList students={students} />
+        </main>
+
+        <Footer />
+
     </>
   )
 }

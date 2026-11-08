@@ -2,7 +2,7 @@ import StatusBadge from './StatusBadge';
 
 function StudentCard(props){
     return (
-        <article className={props.student.isActive ? 'active' : 'paused'}>
+        <article className={`student-card ${props.student.isActive ? 'active' : 'paused'}`}>
             <p>ID: {props.student.id}</p>
             <p>Имя: {props.student.name}</p>
             <p>Возраст: {props.student.age}</p>
